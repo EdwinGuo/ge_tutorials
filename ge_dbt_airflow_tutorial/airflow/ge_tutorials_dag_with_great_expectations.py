@@ -91,11 +91,11 @@ def validate_source_data_load(ds, **kwargs):
     # options for the project's GE Data Context.
     context = ge.data_context.DataContext(great_expectations_context_path)
 
-    datasource_name_file = "input_files"
-    expectation_suite_name_file = "npi_small_file.critical"
-    batch_kwargs_file = {"path": os.path.join(GE_TUTORIAL_ROOT_PATH, "data", "npi_small.csv"),
-                         'datasource': 'input_files'}
-    batch_file = context.get_batch(batch_kwargs_file, expectation_suite_name_file)
+    #datasource_name_file = "input_files"
+    #expectation_suite_name_file = "npi_small_file.critical"
+    #batch_kwargs_file = {"path": os.path.join(GE_TUTORIAL_ROOT_PATH, "data", "npi_small.csv"),
+    #                     'datasource': 'input_files'}
+    #batch_file = context.get_batch(batch_kwargs_file, expectation_suite_name_file)
 
     expectation_suite_name_db = "npi_small_db_table.critical"
     datasource_name_file_db = "datawarehouse"
@@ -119,7 +119,7 @@ def validate_source_data_load(ds, **kwargs):
     run_id = "airflow:" + kwargs['dag_run'].run_id + ":" + str(kwargs['dag_run'].start_date)
     results = context.run_validation_operator(
         "action_list_operator",
-        assets_to_validate=[batch_file, batch_db],
+        assets_to_validate=[batch_db],
         run_id=run_id)  # e.g., Airflow run id or some run identifier that your pipeline uses.
 
     if not results["success"]:
